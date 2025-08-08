@@ -23,12 +23,14 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: 🛠️ Compile Main.java
-        run: javac src/Main.java
-
-      - name: 🚀 Run Main.java with secrets
+      - name: 🛠️ Compile Main.java with external JARs
         run: |
-          java -cp src Main \
+          mkdir -p out
+          javac -cp "libs/*" -d out src/Main.java
+
+      - name: 🚀 Run Main.class with external JARs and secrets
+        run: |
+          java -cp "out:libs/*" Main \
             "${{ secrets.API_KEY }}" \
             "${{ secrets.APP_PASSWD }}" \
             "${{ secrets.SENDER_EMAIL }}" \
