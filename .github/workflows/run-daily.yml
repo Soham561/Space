@@ -3,7 +3,11 @@ name: Daily Space Fact Sender
 on:
   workflow_dispatch:  # Allows manual run from Actions tab
   schedule:
-    - cron: '30 3 * * *'  # Runs every day at 9:00 AM IST
+    - cron: "30 0 * * *"   # 6:00 AM IST
+    - cron: "30 6 * * *"   # 12:00 PM IST
+    - cron: "30 10 * * *"  # 4:00 PM IST
+    - cron: "30 12 * * *"  # 6:00 PM IST
+    - cron: "30 15 * * *"  # 9:00 PM IST
 
 jobs:
   build-and-run:
