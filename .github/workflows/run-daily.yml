@@ -3,11 +3,8 @@ name: Daily Space Fact Sender
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 0 * * *"
-    - cron: "30 6 * * *"
-    - cron: "30 10 * * *"
-    - cron: "30 12 * * *"
-    - cron: "30 15 * * *"
+    - cron: "0 1 * * *"
+    - cron: "30 13 * * *"
 
 jobs:
   build-and-run:
@@ -15,10 +12,10 @@ jobs:
 
     steps:
       - name: ⬇️ Checkout Repo
-        uses: actions/checkout@v4   # ✅ upgraded
+        uses: actions/checkout@v4
 
       - name: ☕ Set up Java 21
-        uses: actions/setup-java@v4  # ✅ upgraded
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
@@ -27,7 +24,9 @@ jobs:
         run: javac -cp "libs/*" src/*.java -d out
 
       - name: 🚀 Run App
-        run: java -cp "libs/*:out" Main
+        run: |
+          echo "Starting app..."
+          java -cp "libs/*:out" Main
         env:
           API_KEY: ${{ secrets.API_KEY }}
           APP_PASSWD: ${{ secrets.APP_PASSWD }}
